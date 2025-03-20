@@ -37,7 +37,7 @@ export interface Funko {
   ID: string;
   name: string;
   description: string;
-  tipe: FunkoType;
+  type: FunkoType;
   genre: FunkoGenre;
   franchise: string;
   num_franchise: number;
