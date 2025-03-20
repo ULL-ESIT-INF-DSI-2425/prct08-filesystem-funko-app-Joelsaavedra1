@@ -129,25 +129,25 @@ describe("Show Funko", () => {
   test("should be able to show a funko", () => {
     userCollection.addFunko(funko1);
     const output =
-      "test Funko with ID 3\n------------------------------------------------\nID: 3\nName: Batman\nDescription: Batman Funko Pop\nType: Pop!\nGenre: Movies and TV\nFranchise: DC\nNumber in Franchise: 1\nExclusive: false\nSpecial Specs: Glow in the dark\nMarket Value: 100\n------------------------------------------------";
+      "test Funko with ID 3\n------------------------------------------------\nID: 3\nName: Batman\nDescription: Batman Funko Pop\nType: Pop!\nGenre: Movies and TV\nFranchise: DC\nNumber in Franchise: 1\nExclusive: false\nSpecial Specs: Glow in the dark\nMarket Value: 100\n------------------------------------------------\n";
     expect(userCollection.showFunko(funko1.ID)).toBe(output);
   });
   test("should be able to show a funko", () => {
     userCollection.addFunko(funko2);
     const output =
-      "test Funko with ID 2\n------------------------------------------------\nID: 2\nName: Superman\nDescription: Superman Funko Pop\nType: Vynil Gold\nGenre: Anime\nFranchise: X\nNumber in Franchise: 2\nExclusive: false\nSpecial Specs: Glow in the dark\nMarket Value: 200\n------------------------------------------------";
+      "test Funko with ID 2\n------------------------------------------------\nID: 2\nName: Superman\nDescription: Superman Funko Pop\nType: Vynil Gold\nGenre: Anime\nFranchise: X\nNumber in Franchise: 2\nExclusive: false\nSpecial Specs: Glow in the dark\nMarket Value: 200\n------------------------------------------------\n";
     expect(userCollection.showFunko(funko2.ID)).toBe(output);
   });
   test("should be able to show a funko", () => {
     userCollection.addFunko(funko3);
     const output =
-      "test Funko with ID 1\n------------------------------------------------\nID: 1\nName: Spiderman\nDescription: Spiderman Funko Pop\nType: Pop!\nGenre: Movies and TV\nFranchise: Marvel\nNumber in Franchise: 1\nExclusive: false\nSpecial Specs: Glow in the dark\nMarket Value: 20\n------------------------------------------------";
+      "test Funko with ID 1\n------------------------------------------------\nID: 1\nName: Spiderman\nDescription: Spiderman Funko Pop\nType: Pop!\nGenre: Movies and TV\nFranchise: Marvel\nNumber in Franchise: 1\nExclusive: false\nSpecial Specs: Glow in the dark\nMarket Value: 20\n------------------------------------------------\n";
     expect(userCollection.showFunko(funko3.ID)).toBe(output);
   });
   test("should be able to show a funko", () => {
     userCollection.addFunko(funko4);
     const output =
-      "test Funko with ID 4\n------------------------------------------------\nID: 4\nName: Ironman\nDescription: Ironman Funko Pop\nType: Pop!\nGenre: Movies and TV\nFranchise: Marvel\nNumber in Franchise: 2\nExclusive: false\nSpecial Specs: Glow in the dark\nMarket Value: 50\n------------------------------------------------";
+      "test Funko with ID 4\n------------------------------------------------\nID: 4\nName: Ironman\nDescription: Ironman Funko Pop\nType: Pop!\nGenre: Movies and TV\nFranchise: Marvel\nNumber in Franchise: 2\nExclusive: false\nSpecial Specs: Glow in the dark\nMarket Value: 50\n------------------------------------------------\n";
     expect(userCollection.showFunko(funko4.ID)).toBe(output);
   });
   test("should not be able to show a funko that does not exist", () => {

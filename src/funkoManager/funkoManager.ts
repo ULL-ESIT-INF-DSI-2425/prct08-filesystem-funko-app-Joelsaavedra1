@@ -19,6 +19,26 @@ export class FunkoManager {
     this.fileManager = new FileManager(user.toLowerCase());
   }
   /**
+   * This method formats a Funko Pop to be displayed.
+   * @param funko - The Funko Pop to be formatted.
+   * @returns A string with the formatted Funko Pop.
+   */
+  private formatFunkoOutput(funko: Funko): string {
+    let marketColor: ChalkInstance;
+    if (funko.market_value < 50) marketColor = chalk.red;
+    else if (funko.market_value < 100) marketColor = chalk.magenta;
+    else if (funko.market_value < 200) marketColor = chalk.yellow;
+    else marketColor = chalk.green;
+
+    return (
+      chalk.green(
+        `ID: ${funko.ID}\nName: ${funko.name}\nDescription: ${funko.description}\nType: ${funko.type}\nGenre: ${funko.genre}\nFranchise: ${funko.franchise}\nNumber in Franchise: ${funko.num_franchise}\nExclusive: ${funko.exclusive}\nSpecial Specs: ${funko.special_specs}\n`,
+      ) +
+      marketColor(`Market Value: ${funko.market_value}\n`) +
+      chalk.green("------------------------------------------------\n")
+    );
+  }
+  /**
    * This method adds a new Funko Pop to the collection.
    * @param funko - The Funko Pop to be added to the collection.
    */
@@ -68,32 +88,10 @@ export class FunkoManager {
     if (funkos.length === 0) {
       output = chalk.red(`No Funko Pops found at ${this.user} collection!`);
     } else {
-      let marketColor: ChalkInstance;
-      output += chalk.green(`${this.user} Funko Pop Collection`) + "\n";
-      output +=
-        chalk.green("------------------------------------------------") + "\n";
-      funkos.forEach((funko) => {
-        if (funko.market_value < 50) marketColor = chalk.red;
-        if (funko.market_value >= 50 && funko.market_value < 100)
-          marketColor = chalk.magenta;
-        if (funko.market_value >= 100 && funko.market_value < 200)
-          marketColor = chalk.yellow;
-        if (funko.market_value >= 200) marketColor = chalk.green;
-        output += chalk.green(`ID: ${funko.ID}`) + "\n";
-        output += chalk.green(`Name: ${funko.name}`) + "\n";
-        output += chalk.green(`Description: ${funko.description}`) + "\n";
-        output += chalk.green(`Type: ${funko.type}`) + "\n";
-        output += chalk.green(`Genre: ${funko.genre}`) + "\n";
-        output += chalk.green(`Franchise: ${funko.franchise}`) + "\n";
-        output +=
-          chalk.green(`Number in Franchise: ${funko.num_franchise}`) + "\n";
-        output += chalk.green(`Exclusive: ${funko.exclusive}`) + "\n";
-        output += chalk.green(`Special Specs: ${funko.special_specs}`) + "\n";
-        output += marketColor(`Market Value: ${funko.market_value}`) + "\n";
-        output +=
-          chalk.green("------------------------------------------------") +
-          "\n";
-      });
+      output =
+        chalk.green(
+          `${this.user} Funko Pop Collection\n------------------------------------------------\n`,
+        ) + funkos.map((funko) => this.formatFunkoOutput(funko)).join("");
     }
     return output;
   }
@@ -103,37 +101,17 @@ export class FunkoManager {
    */
   showFunko(id: string): string {
     let output = "";
-    if (this.fileManager.exists(id)) {
-      const funko = this.fileManager.getFunko(id);
-      if (funko) {
-        let marketColor: ChalkInstance;
-        output += chalk.green(`${this.user} Funko with ID ${id}`) + "\n";
-        output +=
-          chalk.green("------------------------------------------------") +
-          "\n";
-        if (funko.market_value < 50) marketColor = chalk.red;
-        if (funko.market_value >= 50 && funko.market_value < 100)
-          marketColor = chalk.magenta;
-        if (funko.market_value >= 100 && funko.market_value < 200)
-          marketColor = chalk.yellow;
-        if (funko.market_value >= 200) marketColor = chalk.green;
-        output += chalk.green(`ID: ${funko.ID}`) + "\n";
-        output += chalk.green(`Name: ${funko.name}`) + "\n";
-        output += chalk.green(`Description: ${funko.description}`) + "\n";
-        output += chalk.green(`Type: ${funko.type}`) + "\n";
-        output += chalk.green(`Genre: ${funko.genre}`) + "\n";
-        output += chalk.green(`Franchise: ${funko.franchise}`) + "\n";
-        output +=
-          chalk.green(`Number in Franchise: ${funko.num_franchise}`) + "\n";
-        output += chalk.green(`Exclusive: ${funko.exclusive}`) + "\n";
-        output += chalk.green(`Special Specs: ${funko.special_specs}`) + "\n";
-        output += marketColor(`Market Value: ${funko.market_value}`) + "\n";
-        output += chalk.green(
-          "------------------------------------------------",
-        );
-      }
-    } else {
+    if (!this.fileManager.exists(id)) {
       output = chalk.red(`Funko not found at ${this.user} collection!`);
+    }
+    const funko = this.fileManager.getFunko(id);
+    if (funko === null) {
+      output = chalk.red(`Funko not found at ${this.user} collection!`);
+    } else {
+      output =
+        chalk.green(
+          `${this.user} Funko with ID ${id}\n------------------------------------------------\n`,
+        ) + this.formatFunkoOutput(funko);
     }
     return output;
   }
